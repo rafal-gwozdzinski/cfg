@@ -1,0 +1,87 @@
+/* Compact titlebar / tab bar for Ghostty (GTK4 + libadwaita).
+ * Tune the min-height / padding values to taste.
+ */
+
+/* ---- Headerbar (gtk-titlebar-style = native) ---- */
+headerbar {
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+headerbar > windowhandle > box {
+  padding: 3px 4px;
+}
+
+headerbar button,
+headerbar menubutton,
+headerbar splitbutton,
+headerbar togglebutton,
+headerbar windowcontrols button {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 0 4px;
+  margin: 0;
+}
+
+headerbar windowcontrols button > image {
+  padding: 0;
+}
+
+/* ---- Tab bar (gtk-titlebar-style = tabs) ---- */
+tabbar {
+  min-height: 0;
+}
+
+tabbar .box {
+  min-height: 0;
+  padding: 0;
+}
+
+tabbar tabbox {
+  min-height: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+tabbar tabbox tab {
+  min-height: 22px;
+  padding: 2px 8px;
+}
+
+tabbar tabbox tab button.image-button {
+  min-height: 18px;
+  min-width: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+tabbar .start-action,
+tabbar .end-action {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+tabbar .start-action button,
+tabbar .end-action button,
+tabbar .start-action menubutton,
+tabbar .end-action menubutton,
+tabbar .start-action splitbutton,
+tabbar .end-action splitbutton,
+tabbar .start-action togglebutton,
+tabbar .end-action togglebutton {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 0 4px;
+  margin: 0;
+}
+
+tabbar windowcontrols button {
+  min-height: 22px;
+  min-width: 22px;
+  padding: 3px;
+}
+
+tabbar windowcontrols button > image {
+  padding: 0;
+}

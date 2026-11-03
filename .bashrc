@@ -28,3 +28,8 @@ unset rc
 export PATH=/home/rafal/.opencode/bin:$PATH
 
 alias config='/usr/bin/git --git-dir=/home/rafal/.cfg/ --work-tree=/home/rafal'
+
+# Use Neovim for vi (keep consistent with a system-wide vi -> nvim setup)
+if command -v nvim >/dev/null 2>&1; then
+  alias vi='nvim'
+fi

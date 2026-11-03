@@ -1,4 +1,3 @@
 theme = iTerm2 Solarized Light
-gtk-titlebar-hide-when-maximized = true
 gtk-titlebar-style = tabs
 gtk-custom-css = /home/rafal/.config/ghostty/custom.css

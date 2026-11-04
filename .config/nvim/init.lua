@@ -1,5 +1,3 @@
--- ~/.config/nvim/init.lua
-
 -- ============================================================================
 -- Leader
 -- ============================================================================
@@ -46,6 +44,30 @@ opt.path:append("**")
 opt.wildignore:append({ "*/.git/*", "*/node_modules/*" })
 
 -- ============================================================================
+-- Plugins
+-- ============================================================================
+vim.pack.add({
+  "https://github.com/maxmx03/solarized.nvim",
+  "https://github.com/nvim-mini/mini.pairs",
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+  "https://github.com/nvim-telescope/telescope.nvim"
+  })
+
+-- ============================================================================
+-- Plugin setup
+-- ============================================================================
+require("solarized").setup({
+  variant = "winter",
+  styles = { comments = { italic = true } },
+})
+vim.cmd.colorscheme("solarized")
+
+require("mini.pairs").setup()
+
+require("telescope").setup()
+
+-- ============================================================================
 -- Keymaps
 -- ============================================================================
 local map = vim.keymap.set
@@ -66,21 +88,9 @@ map("n", "<C-j>", "<C-w>j", { desc = "Lower split" })
 map("n", "<C-k>", "<C-w>k", { desc = "Upper split" })
 map("n", "<C-l>", "<C-w>l", { desc = "Right split" })
 
--- ============================================================================
--- Plugins
--- ============================================================================
-vim.pack.add({
-  "https://github.com/maxmx03/solarized.nvim",
-  "https://github.com/nvim-mini/mini.pairs",
-})
+-- Telescope
 
--- ============================================================================
--- Plugin setup
--- ============================================================================
-require("solarized").setup({
-  variant = "winter",
-  styles = { comments = { italic = true } },
-})
-vim.cmd.colorscheme("solarized")
+local builtin = require('telescope.builtin')
+map("n", "<C-p>", builtin.find_files, { desc = "Find files"})
+map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep"})
 
-require("mini.pairs").setup()

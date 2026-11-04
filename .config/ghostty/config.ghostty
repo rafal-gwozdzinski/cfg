@@ -1,3 +1,13 @@
 theme = iTerm2 Solarized Light
 gtk-titlebar-style = tabs
 gtk-custom-css = /home/rafal/.config/ghostty/custom.css
+
+# Disable ligatures (JetBrains Mono uses calt for code ligatures)
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+keybind = ctrl+alt+h=goto_split:left
+keybind = ctrl+alt+j=goto_split:bottom
+keybind = ctrl+alt+k=goto_split:top
+keybind = ctrl+alt+l=goto_split:right

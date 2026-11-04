@@ -46,13 +46,22 @@ opt.wildignore:append({ "*/.git/*", "*/node_modules/*" })
 -- ============================================================================
 -- Plugins
 -- ============================================================================
+-- Build native plugins after install/update
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    if ev.data.spec.name == "telescope-fzf-native.nvim" and ev.data.kind ~= "delete" then
+      vim.system({ "make" }, { cwd = ev.data.path }):wait()
+    end
+  end,
+})
+
 vim.pack.add({
   "https://github.com/maxmx03/solarized.nvim",
   "https://github.com/nvim-mini/mini.pairs",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-  "https://github.com/nvim-telescope/telescope.nvim"
-  })
+  "https://github.com/nvim-telescope/telescope.nvim",
+})
 
 -- ============================================================================
 -- Plugin setup
@@ -65,7 +74,17 @@ vim.cmd.colorscheme("solarized")
 
 require("mini.pairs").setup()
 
-require("telescope").setup()
+require("telescope").setup({
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    },
+  },
+})
+require("telescope").load_extension("fzf")
 
 -- ============================================================================
 -- Keymaps
@@ -79,7 +98,6 @@ map("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
 -- Files and buffers
 map("n", "<leader>f", ":find ", { desc = "Find file" })
 map("n", "<leader>b", ":buffer ", { desc = "Switch buffer" })
-map("n", "<leader>l", "<cmd>ls<CR>", { desc = "List buffers" })
 map("n", "<leader><Tab>", "<C-^>", { desc = "Last buffer" })
 
 -- Splits
@@ -90,7 +108,8 @@ map("n", "<C-l>", "<C-w>l", { desc = "Right split" })
 
 -- Telescope
 
-local builtin = require('telescope.builtin')
-map("n", "<C-p>", builtin.find_files, { desc = "Find files"})
-map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep"})
+local builtin = require("telescope.builtin")
+map("n", "<C-p>", builtin.find_files, { desc = "Find files" })
+map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+map("n", "<leader>l", builtin.buffers, { desc = "Buffers" })
 

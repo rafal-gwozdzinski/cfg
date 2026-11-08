@@ -33,3 +33,10 @@ alias config='/usr/bin/git --git-dir=/home/rafal/.cfg/ --work-tree=/home/rafal'
 if command -v nvim >/dev/null 2>&1; then
   alias vi='nvim'
 fi
+
+# Disable XON/XOFF software flow control so Ctrl-S no longer freezes the
+# terminal and Ctrl-S / Ctrl-Q stay available to readline. This runs in every
+# interactive shell, including each bash pane started by tmux.
+if [[ $- == *i* ]] && [[ -t 0 ]]; then
+  stty -ixon 2>/dev/null
+fi

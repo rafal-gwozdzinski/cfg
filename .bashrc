@@ -11,6 +11,14 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
+# Use Neovim as the default editor: EDITOR for generic tools, VISUAL for
+# full-screen editors, SUDO_EDITOR for `sudo -e` / `sudoedit`.
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+  export SUDO_EDITOR=nvim
+fi
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -40,3 +48,6 @@ fi
 if [[ $- == *i* ]] && [[ -t 0 ]]; then
   stty -ixon 2>/dev/null
 fi
+
+export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOPATH)/bin"

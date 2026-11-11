@@ -106,10 +106,63 @@ map("n", "<C-j>", "<C-w>j", { desc = "Lower split" })
 map("n", "<C-k>", "<C-w>k", { desc = "Upper split" })
 map("n", "<C-l>", "<C-w>l", { desc = "Right split" })
 
+-- Terminal
+map('t', '<Esc>', [[<C-\><C-n>]])
+
 -- Telescope
 
 local builtin = require("telescope.builtin")
 map("n", "<C-p>", builtin.find_files, { desc = "Find files" })
 map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
 map("n", "<leader>l", builtin.buffers, { desc = "Buffers" })
+
+-- ============================================================================
+-- LSP (Go)
+-- ============================================================================
+-- Built-in LSP client, no plugin needed. Install the server with:
+--   go install golang.org/x/tools/gopls@latest
+vim.lsp.config("gopls", {
+  cmd = { "gopls" },
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_markers = { "go.work", "go.mod", ".git" },
+})
+vim.lsp.enable("gopls")
+
+-- Show the completion menu without preselecting; <C-y> confirms an item.
+vim.opt.completeopt = { "menuone", "noselect" }
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local function lsp_map(lhs, rhs, desc)
+      vim.keymap.set("n", lhs, rhs, { buffer = ev.buf, desc = desc })
+    end
+
+    lsp_map("gd", vim.lsp.buf.definition, "Go to definition")
+    lsp_map("gD", vim.lsp.buf.declaration, "Go to declaration")
+    lsp_map("gr", vim.lsp.buf.references, "References")
+    lsp_map("K", vim.lsp.buf.hover, "Hover docs")
+    lsp_map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+    lsp_map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+    lsp_map("<leader>d", vim.diagnostic.open_float, "Line diagnostics")
+    lsp_map("<leader>fm", function()
+      vim.lsp.buf.format({ async = true })
+    end, "Format buffer")
+
+    -- Built-in LSP completion (no nvim-cmp needed). Manual trigger only:
+    -- <C-Space> opens the menu; <C-n>/<C-p> move, <C-y> accepts.
+    vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = false })
+    vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get,
+      { buffer = ev.buf, desc = "Complete (LSP)" })
+
+    -- <CR> accepts the highlighted item instead of accepting + newline.
+    -- Without a highlighted item it delegates to mini.pairs, which splits an
+    -- empty pair onto two lines (e.g. `func f() {|}` -> brace on its own line).
+    vim.keymap.set("i", "<CR>", function()
+      if vim.fn.pumvisible() == 1 and vim.fn.complete_info({ "selected" }).selected ~= -1 then
+        return vim.keycode("<C-y>")
+      end
+      return require("mini.pairs").cr()
+    end, { buffer = ev.buf, expr = true, desc = "Accept completion or split pair" })
+  end,
+})
 

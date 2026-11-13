@@ -25,11 +25,19 @@ fi
 unset rc
 
 # opencode
-export PATH=/home/rafal/.opencode/bin:$PATH
+case ":$PATH:" in
+  *":$HOME/.opencode/bin:"*) ;;
+  *) export PATH="$HOME/.opencode/bin:$PATH" ;;
+esac
 
-alias config='/usr/bin/git --git-dir=/home/rafal/.cfg/ --work-tree=/home/rafal'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Use Neovim for vi (keep consistent with a system-wide vi -> nvim setup)
 if command -v nvim >/dev/null 2>&1; then
   alias vi='nvim'
+fi
+
+# Machine-specific overrides (never tracked)
+if [ -f "$HOME/.bashrc.local" ]; then
+  . "$HOME/.bashrc.local"
 fi

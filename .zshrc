@@ -97,7 +97,7 @@ flatten() {
 # ---------------------------------------------------------------------------
 # Prompt — palette colors only, so it stays readable in light and dark themes
 # ---------------------------------------------------------------------------
-PROMPT='%F{blue}%n%f@%F{cyan}%m%f %F{green}%1~%f %F{yellow}%#%f '
+PROMPT='%F{blue}%B%n%b%f@%F{cyan}%B%m%b%f %F{green}%1~%f %F{yellow}%#%f '
 PROMPT2='%F{blue}%_%f '
 
 # ---------------------------------------------------------------------------

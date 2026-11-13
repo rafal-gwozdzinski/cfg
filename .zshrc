@@ -95,6 +95,12 @@ flatten() {
 }
 
 # ---------------------------------------------------------------------------
+# Prompt — palette colors only, so it stays readable in light and dark themes
+# ---------------------------------------------------------------------------
+PROMPT='%F{blue}%n%f@%F{cyan}%m%f %F{green}%1~%f %F{yellow}%#%f '
+PROMPT2='%F{blue}%_%f '
+
+# ---------------------------------------------------------------------------
 # Machine-specific overrides (never tracked)
 # ---------------------------------------------------------------------------
 [ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"

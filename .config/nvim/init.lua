@@ -44,6 +44,25 @@ opt.path:append("**")
 opt.wildignore:append({ "*/.git/*", "*/node_modules/*" })
 
 -- ============================================================================
+-- Clipboard over SSH (OSC 52)
+-- ============================================================================
+-- Remote machines have no pbcopy/X11; let the terminal handle the clipboard.
+if vim.env.SSH_CONNECTION then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = osc52.paste("+"),
+      ["*"] = osc52.paste("*"),
+    },
+  }
+end
+
+-- ============================================================================
 -- Plugins
 -- ============================================================================
 -- Build native plugins after install/update

@@ -6,6 +6,12 @@ theme = iTerm2 Solarized Light
 #   gtk-custom-css = ~/.config/ghostty/custom.css
 config-file = ?config.local
 
+# OSC 52 clipboard for remote apps (nvim over SSH).
+# read=allow lets SSH sessions paste without a prompt; set it back to "ask"
+# if you don't want remote programs reading the clipboard.
+clipboard-read = allow
+clipboard-write = allow
+
 # Disable ligatures (JetBrains Mono uses calt for code ligatures)
 font-feature = -calt
 font-feature = -liga

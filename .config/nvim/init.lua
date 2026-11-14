@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 vim.pack.add({
   "https://github.com/maxmx03/solarized.nvim",
   "https://github.com/nvim-mini/mini.pairs",
+  "https://github.com/nvim-mini/mini.surround",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
@@ -73,6 +74,7 @@ require("solarized").setup({
 vim.cmd.colorscheme("solarized")
 
 require("mini.pairs").setup()
+require("mini.surround").setup()
 
 require("telescope").setup({
   extensions = {
@@ -113,8 +115,20 @@ map('t', '<Esc>', [[<C-\><C-n>]])
 
 local builtin = require("telescope.builtin")
 map("n", "<C-p>", builtin.find_files, { desc = "Find files" })
+map("n", "<leader>fh", function()
+  builtin.find_files({ hidden = true })
+end, { desc = "Find files (hidden)" })
 map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
 map("n", "<leader>l", builtin.buffers, { desc = "Buffers" })
+
+-- Diagnostics
+-- ]d / [d (all diagnostics) are built into Neovim; these are errors only.
+map("n", "]e", function()
+  vim.diagnostic.jump({ count = vim.v.count1, severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Next error" })
+map("n", "[e", function()
+  vim.diagnostic.jump({ count = -vim.v.count1, severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Previous error" })
 
 -- ============================================================================
 -- LSP (Go)

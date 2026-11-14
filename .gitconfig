@@ -1,0 +1,21 @@
+[user]
+	name = Rafal Gwozdzinski
+	email = rafal@gwozdzinski.com
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
+[http]
+	postBuffer = 524288000
+[pull]
+	rebase = false
+[advice]
+	addIgnoredFile = false
+[url "git@github.com:"]
+	insteadOf = https://github.com/

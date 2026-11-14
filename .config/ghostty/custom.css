@@ -35,13 +35,16 @@ tabbar {
 
 tabbar .box {
   min-height: 0;
-  padding: 0;
+  /* Keep a few px of empty padding: this is the area GTK uses to
+   * drag/move the window. Removing it makes the window nearly immovable
+   * by mouse because the tabs fill the whole bar. */
+  padding: 3px 4px;
 }
 
 tabbar tabbox {
   min-height: 0;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 tabbar tabbox tab {

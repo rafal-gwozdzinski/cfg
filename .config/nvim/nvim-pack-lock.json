@@ -4,6 +4,10 @@
       "rev": "03eb1f0062a2cee5314d1ac3939246e4bb21352e",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
+    "mini.surround": {
+      "rev": "f993f66edfc2741cc515aa1f782816fd5c17bc14",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"

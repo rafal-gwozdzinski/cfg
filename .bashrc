@@ -32,11 +32,22 @@ dedupe_path() {
   PATH="${out[*]}"
 }
 
-PATH="$HOME/.local/bin:$HOME/bin:$HOME/.opencode/bin:$GOPATH/bin:$HOME/.dotnet/tools:$PATH"
+PATH="$HOME/.local/bin:$HOME/bin:$HOME/.opencode/bin:$GOPATH/bin:$HOME/.dotnet/tools:/usr/local/go/bin:$PATH"
 dedupe_path
 export PATH
 
 export DOTNET_CLI_UI_LANGUAGE=en
+
+# ---------------------------------------------------------------------------
+# Editor
+# ---------------------------------------------------------------------------
+# Use Neovim as the default editor: EDITOR for generic tools, VISUAL for
+# full-screen editors, SUDO_EDITOR for `sudo -e` / `sudoedit`.
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+  export SUDO_EDITOR=nvim
+fi
 
 # ---------------------------------------------------------------------------
 # Dotfiles
@@ -113,6 +124,16 @@ PS1='\[\e[1;34m\]\u\[\e[0m\]@\[\e[1;36m\]\h\[\e[0m\] \[\e[32m\]\W\[\e[0m\] \[\e[
 # ~/.local/share/bash-completion/completions/<cmd> on first Tab)
 # ---------------------------------------------------------------------------
 [[ -r /opt/homebrew/etc/profile.d/bash_completion.sh ]] && . /opt/homebrew/etc/profile.d/bash_completion.sh
+
+# ---------------------------------------------------------------------------
+# Terminal
+# ---------------------------------------------------------------------------
+# Disable XON/XOFF software flow control so Ctrl-S no longer freezes the
+# terminal and Ctrl-S / Ctrl-Q stay available to readline. This runs in every
+# interactive shell, including each bash pane started by tmux.
+if [[ $- == *i* ]] && [[ -t 0 ]]; then
+  stty -ixon 2>/dev/null
+fi
 
 # ---------------------------------------------------------------------------
 # Machine-specific overrides (never tracked)

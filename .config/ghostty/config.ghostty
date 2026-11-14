@@ -1,8 +1,10 @@
 theme = iTerm2 Solarized Light
 
-# Linux/GTK only — uncomment on a Linux machine:
-# gtk-titlebar-style = tabs
-# gtk-custom-css = ~/.config/ghostty/custom.css
+# Linux/GTK-only options live in config.local (untracked) so this file stays
+# portable to macOS. Example config.local:
+#   gtk-titlebar-style = tabs
+#   gtk-custom-css = ~/.config/ghostty/custom.css
+config-file = ?config.local
 
 # Disable ligatures (JetBrains Mono uses calt for code ligatures)
 font-feature = -calt

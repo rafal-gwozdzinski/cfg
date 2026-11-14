@@ -11,8 +11,10 @@ if [[ ${LANG-} != en_US.UTF-8 ]]; then
   fi
 fi
 
-# Homebrew: puts bash 5, git, direnv, etc. on PATH.
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew: puts bash 5, git, direnv, etc. on PATH (macOS).
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Rust
 [ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

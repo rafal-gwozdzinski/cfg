@@ -49,6 +49,7 @@ opt.wildignore:append({ "*/.git/*", "*/node_modules/*" })
 vim.pack.add({
   "https://github.com/maxmx03/solarized.nvim",
   "https://github.com/nvim-mini/mini.pairs",
+  "https://github.com/nvim-mini/mini.surround",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
   "https://github.com/nvim-telescope/telescope.nvim"
@@ -64,6 +65,7 @@ require("solarized").setup({
 vim.cmd.colorscheme("solarized")
 
 require("mini.pairs").setup()
+require("mini.surround").setup()
 
 require("telescope").setup()
 
